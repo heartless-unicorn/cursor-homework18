@@ -8,10 +8,20 @@ class Timer extends Component {
       minutes: props.minutes,
       seconds: props.seconds * 1000,
       milsec: props.milsec,
-      active: true,
+      active: props.autorun,
+      autorun: true,
     };
-    this.startTimer = this.startTimer.bind(this);
+
+    this.manageTimer = this.manageTimer.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
+  }
+  componentDidMount() {
+    if (this.state.autorun) {
+      this.timerID = setInterval(() => this.tick(), this.state.interval);
+    }
+  }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -22,13 +32,13 @@ class Timer extends Component {
     }
     return true;
   }
-  startTimer() {
-    console.log(this.state);
+  manageTimer() {
     if (this.state.active) {
       this.props.onTimeStart();
       this.timerID = setInterval(() => this.tick(), this.state.interval);
     } else {
       this.props.onTimePause();
+
       clearInterval(this.timerID);
     }
 
@@ -43,7 +53,6 @@ class Timer extends Component {
     });
   }
   tick() {
-    // this.props.onTick(`${this.state.seconds / 1000} seconds`);
     if (this.state.interval < 1000) {
       if (this.state.milsec > 0) {
         this.setState({ milsec: this.state.milsec - this.state.interval });
@@ -72,6 +81,7 @@ class Timer extends Component {
   render() {
     return (
       <div className="Timer">
+        {" "}
         <div>
           {this.state.minutes < 10
             ? `0${this.state.minutes}`
@@ -82,7 +92,7 @@ class Timer extends Component {
             : this.state.seconds / 1000}
           {this.props.milsec ? `:${this.state.milsec}` : null}
         </div>
-        <button onClick={this.startTimer}>Stop/Start</button>
+        <button onClick={this.manageTimer}>Stop/Start</button>
         <button onClick={this.resetTimer}>Reset</button>
       </div>
     );

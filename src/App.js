@@ -10,6 +10,7 @@ function App() {
         seconds={10}
         step={100}
         milsec={1000}
+        autorun={false}
         onTimeEnd={() => console.log("Час вийшов!")}
         onTimeStart={(timeLeft) => console.log("Таймер запущено!")}
         onTimePause={(timeLeft) => console.log("Таймер на паузі!")}
