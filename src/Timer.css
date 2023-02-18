@@ -1,0 +1,19 @@
+.timer-field {
+  background-color: white;
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 20px;
+  font-size: 40px;
+  font-weight: 700;
+  border: 3px solid #14401d;
+}
+.button-field {
+  display: flex;
+  justify-content: space-evenly;
+}
+button {
+  padding: 15px 20px;
+  font-size: 20px;
+  font-weight: 400;
+  background-color: #d9fae1;
+}

@@ -1,0 +1,16 @@
+.App {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 40px;
+  background-color: #f2fff5;
+  color: #14401d;
+  height: 100vh;
+}
+h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+p {
+  font-size: 20px;
+  font-weight: 600;
+}

@@ -1,4 +1,5 @@
 import { Component } from "react";
+import "./Timer.css";
 
 class Timer extends Component {
   constructor(props) {
@@ -8,14 +9,14 @@ class Timer extends Component {
       minutes: props.minutes,
       seconds: props.seconds * 1000,
       milsec: props.milsec,
-      active: props.autorun,
-      autorun: true,
+      autorun: props.autorun,
     };
 
     this.manageTimer = this.manageTimer.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
   }
   componentDidMount() {
+    this.setState({ active: this.state.autorun ? false : true });
     if (this.state.autorun) {
       this.timerID = setInterval(() => this.tick(), this.state.interval);
     }
@@ -82,18 +83,20 @@ class Timer extends Component {
     return (
       <div className="Timer">
         {" "}
-        <div>
+        <div className="timer-field">
           {this.state.minutes < 10
             ? `0${this.state.minutes}`
             : this.state.minutes}
           :
-          {this.state.seconds < 10
+          {this.state.seconds < 10000
             ? `0${this.state.seconds / 1000}`
             : this.state.seconds / 1000}
           {this.props.milsec ? `:${this.state.milsec}` : null}
         </div>
-        <button onClick={this.manageTimer}>Stop/Start</button>
-        <button onClick={this.resetTimer}>Reset</button>
+        <div className="button-field">
+          <button onClick={this.manageTimer}>Stop/Start</button>
+          <button onClick={this.resetTimer}>Reset</button>
+        </div>
       </div>
     );
   }
